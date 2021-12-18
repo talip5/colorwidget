@@ -10,25 +10,14 @@ class PositionedTiles extends StatefulWidget {
 
 class PositionedTilesState extends State<PositionedTiles> {
   List<Widget> tiles = [
-    Padding(
-      // Place the keys at the *top* of the tree of the items in the collection.
-      key: UniqueKey(),
-      padding: const EdgeInsets.all(8.0),
-      child: StatefulColorfulTile(),
-    ),
-    Padding(
-      key: UniqueKey(),
-      padding: const EdgeInsets.all(8.0),
-      child: StatefulColorfulTile(),
-    ),
+    StatelessColorfulTile(),
+    StatelessColorfulTile(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Row(
-            children: tiles,
-      ),
+      body: Row(children: tiles),
       floatingActionButton: FloatingActionButton(
           child: Icon(Icons.sentiment_very_satisfied), onPressed: swapTiles),
     );
@@ -36,37 +25,21 @@ class PositionedTilesState extends State<PositionedTiles> {
 
   swapTiles() {
     setState(() {
-      tiles.insert(1, tiles.removeAt(0));
+      Widget deneme=tiles.removeAt(0);
+      //tiles.insert(1, tiles.removeAt(0));
+      tiles.insert(1,deneme);
     });
   }
 }
 
-class StatefulColorfulTile extends StatefulWidget {
-  StatefulColorfulTile({Key? key}) : super(key: key);
-
-  @override
-  ColorfulTileState createState() => ColorfulTileState();
-}
-
-class ColorfulTileState extends State<StatefulColorfulTile> {
-  Color? myColor;
-
-  @override
-  void initState() {
-    super.initState();
-    myColor = UniqueColorGenerator.getColor();
-  }
-
+class StatelessColorfulTile extends StatelessWidget {
+  Color myColor = UniqueColorGenerator.getColor();
   @override
   Widget build(BuildContext context) {
     return Container(
-        color: myColor,
-        child: Padding(
-          padding: EdgeInsets.all(70.0),
-        ));
+        color: myColor, child: Padding(padding: EdgeInsets.all(70.0)));
   }
 }
-
 
 //this code snippet tells you how UniqueColorGenerator works
 class UniqueColorGenerator {

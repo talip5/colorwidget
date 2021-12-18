@@ -9,26 +9,23 @@ class PositionedTiles extends StatefulWidget {
 }
 
 class PositionedTilesState extends State<PositionedTiles> {
+  // Stateful tiles now wrapped in padding (a stateless widget) to increase height
+  // of widget tree and show why keys are needed at the Padding level.
   List<Widget> tiles = [
     Padding(
-      // Place the keys at the *top* of the tree of the items in the collection.
-      key: UniqueKey(),
       padding: const EdgeInsets.all(8.0),
-      child: StatefulColorfulTile(),
+      child: StatefulColorfulTile(key: UniqueKey()),
     ),
     Padding(
-      key: UniqueKey(),
       padding: const EdgeInsets.all(8.0),
-      child: StatefulColorfulTile(),
+      child: StatefulColorfulTile(key: UniqueKey()),
     ),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Row(
-            children: tiles,
-      ),
+      body: Row(children: tiles),
       floatingActionButton: FloatingActionButton(
           child: Icon(Icons.sentiment_very_satisfied), onPressed: swapTiles),
     );
@@ -66,7 +63,6 @@ class ColorfulTileState extends State<StatefulColorfulTile> {
         ));
   }
 }
-
 
 //this code snippet tells you how UniqueColorGenerator works
 class UniqueColorGenerator {
